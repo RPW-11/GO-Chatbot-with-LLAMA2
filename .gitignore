@@ -162,3 +162,5 @@ cython_debug/
 
 # model dir
 models/
+# documents dir
+documents/
