@@ -2,3 +2,7 @@ langchain
 flask
 pinecone-client
 python-dotenv
+pypdf
+sentence-transformers
+ipykernel
+pinecone-client
