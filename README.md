@@ -23,3 +23,8 @@ Open the `.env` file and fill in the required informations. The project uses Pin
 PINECONE_API_KE=XXXXXXXXXXXXXXX
 PINECONE_API_ENV=XXXXXXXXXXXXXX
 ```
+
+#### 4. To run the server
+```bash
+waitress-serve --host 127.0.0.1 app:app
+```
