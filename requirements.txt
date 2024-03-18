@@ -6,3 +6,4 @@ pypdf
 sentence-transformers
 ipykernel
 pinecone-client
+langchain-pinecone
