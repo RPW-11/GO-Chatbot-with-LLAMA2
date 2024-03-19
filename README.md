@@ -24,7 +24,9 @@ PINECONE_API_KE=XXXXXXXXXXXXXXX
 PINECONE_API_ENV=XXXXXXXXXXXXXX
 ```
 
-#### 4. To run the server
+#### 4. Run the program.
+Copy and paste this command in your terminal. Make sure you are in the root directory of this project.
 ```bash
-waitress-serve --host 127.0.0.1 app:app
+python app/app.py
 ```
+

@@ -18,7 +18,8 @@ def init():
         model_path='models/llama-2.gguf',
         n_gpu_layers=-1,
         n_batch=512,
-        verbose=False
+        verbose=False,
+        temperature=0.7
     )
 
     global _qa_engine

@@ -9,7 +9,8 @@ PINECONE_INDEX=os.getenv('PINECONE_INDEX')
 EMBEDDINGS=os.getenv('EMBEDDINGS')
 
 PROMP_TEMPLATE = """
-Use the following informations to answer the question. If you don't know the answer, don't try to make it up. Only use the informations given!
+Use the following informations to answer the question.
+If the informations given are irrelevant, don't answer the question.
 
 Context: {context}
 Question: {question}
