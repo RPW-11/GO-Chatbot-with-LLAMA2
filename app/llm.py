@@ -19,7 +19,7 @@ def init():
         n_gpu_layers=-1,
         n_batch=512,
         verbose=False,
-        temperature=0.7
+        temperature=0.1
     )
 
     global _qa_engine

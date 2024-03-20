@@ -27,6 +27,6 @@ PINECONE_API_ENV=XXXXXXXXXXXXXX
 #### 4. Run the program.
 Copy and paste this command in your terminal. Make sure you are in the root directory of this project.
 ```bash
-python app/app.py
+python3 app/app.py
 ```
 

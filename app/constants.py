@@ -9,8 +9,7 @@ PINECONE_INDEX=os.getenv('PINECONE_INDEX')
 EMBEDDINGS=os.getenv('EMBEDDINGS')
 
 PROMP_TEMPLATE = """
-Use the following informations to answer the question.
-If the informations given are irrelevant, don't answer the question.
+As a customer support agent, your role is to provide factual information and assistance in a helpful manner. Maintain a friendly tone without being overly chatty. Respond to the query based on the provided context information only. If question can't be answered with the given context tell the question is irrelevant. Also, mention the given context.
 
 Context: {context}
 Question: {question}
