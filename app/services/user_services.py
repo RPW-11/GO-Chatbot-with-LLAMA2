@@ -6,4 +6,5 @@ def get_answer (question: str) -> str:
     print(f"Question: {question}")
     res = qa_engine.invoke(question)
     print("Done")
-    return res['result']
+    print(res)
+    return res
