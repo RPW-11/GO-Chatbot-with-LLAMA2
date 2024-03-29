@@ -11,13 +11,14 @@ chain_type_kwargs = {'prompt':prompt_template}
 _llama2, _qa_engine = [None, None]
 
 def init():
-    print(f"Initializing model...")
 
     global _llama2
     _llama2 = LlamaCpp(
-        model_path='models/llama-2.gguf',
+        model_path='../models/llama-2.gguf',
         n_gpu_layers=-1,
         n_batch=512,
+        n_ctx=1024,
+        max_tokens=1024,
         verbose=False,
     )
 
@@ -27,7 +28,6 @@ def init():
         | prompt_template
         | _llama2
     )
-    print(f"Success")
 
 
 def get_qaengine():

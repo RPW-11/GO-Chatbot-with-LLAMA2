@@ -1,5 +1,9 @@
 langchain
 flask
+flask-cors
+Flask-SQLAlchemy
+Flask-Migrate
+psycopg2
 pinecone-client
 python-dotenv
 pypdf

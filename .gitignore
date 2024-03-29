@@ -161,6 +161,10 @@ cython_debug/
 .DS_Store
 
 # model dir
-models/
+/models/
+
 # documents dir
 documents/
+
+# migrations
+migrations/
