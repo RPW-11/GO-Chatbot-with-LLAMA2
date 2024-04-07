@@ -1,6 +1,7 @@
 from database import db
 from sqlalchemy import Column, Integer, String, Date, CheckConstraint
 
+
 class User (db.Model):
     __tablename__ = 'users'
     # Table attributes
@@ -14,7 +15,7 @@ class User (db.Model):
     )
 
 
-    def __init__(self, username, created_at, role):
+    def __init__(self, username, created_at, role=None):
         self.username = username
         self.created_at = created_at
         self.role = role

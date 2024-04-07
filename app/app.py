@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask.cli import FlaskGroup
 from waitress import serve
 from constants import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS
 from routes.prompt_routes import prompt_bp
+from routes.user_routes import user_bp
+from routes.document_routes import document_bp
 from database import db
 import llm
 
@@ -19,6 +20,7 @@ print("Connecting to the database...")
 db.init_app(app)
 
 from models.user import User
+from models.document import Document
 
 with app.app_context():
     print("Initializing the Large Language Model")
@@ -27,6 +29,8 @@ with app.app_context():
     migrate = Migrate(app, db)
 
     app.register_blueprint(prompt_bp, url_prefix='/prompt')
+    app.register_blueprint(user_bp, url_prefix='/user')
+    app.register_blueprint(document_bp, url_prefix='/document')
 
 
 print(f"Server is ready")
