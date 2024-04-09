@@ -10,15 +10,22 @@ def register(username: str) -> bool:
     return User(username=username, created_at=created_at).register_use_if_not_exists()
 
 
-def add_document(user_id:int, title:str):
+def add_document(user_id:int, title:str, topic:str, tag:str):
     created_at = date.today()
     size = random() * 5
-    return Document(user_id=user_id, title=title, size=size, created_at=created_at).insert_document()
+    return Document(user_id=user_id, title=title, topic=topic, tag=tag, size=size, created_at=created_at).insert_document()
 
 
-def get_all_documents():
+def get_all_documents(page, per_page):
     documents = []
-    for document in Document.get_all():
+    for document in Document.get_all(page=page, per_page=per_page):
+        documents.append(document.as_dict())
+    return documents
+
+
+def get_filtered_documents(filter_dict:dict):
+    documents = []
+    for document in Document.get_filtered_document(tags=filter_dict.get('tags'), search_term=filter_dict.get('search_term')):
         documents.append(document.as_dict())
     return documents
 
