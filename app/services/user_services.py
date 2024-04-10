@@ -30,6 +30,14 @@ def get_filtered_documents(filter_dict:dict):
     return documents
 
 
+def delete_document_by_id(document_id:int)->bool:
+    try:
+        Document.delete_by_id(document_id=document_id)
+        return True
+    except:
+        return False
+
+
 def get_answer (question: str) -> str:
     qa_engine = get_qaengine()
     print("Inferencing....")

@@ -25,7 +25,7 @@ class Document (db.Model):
         self.created_at = created_at
 
 
-    def insert_document(self):
+    def insert_document(self) -> bool:
         db.session.add(self)
         db.session.commit()
         return True
@@ -34,6 +34,11 @@ class Document (db.Model):
     def get_by_id(document_id:int):
         document = Document.query.get(document_id)
         return document
+    
+
+    def delete_by_id(document_id:int):
+        Document.query.filter_by(id=document_id).delete()
+        db.session.commit()
     
 
     def get_all(page:int, per_page:str):
@@ -51,6 +56,7 @@ class Document (db.Model):
 
     def as_dict(self):
         return {
+            'id': self.id,
             'user_id': self.user_id,
             'title': self.title,
             'topic': self.topic,

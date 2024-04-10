@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from services.user_services import add_document, get_all_documents, get_filtered_documents
+from services.user_services import add_document, get_all_documents, get_filtered_documents, delete_document_by_id
 
 
 def get_all():
@@ -13,6 +13,16 @@ def get_documents_by_filters():
     tags, search_term = args.getlist('tags'), args.get('search_term')
     documents = get_filtered_documents(filter_dict={'tags': tags, 'search_term': search_term})
     return jsonify(documents)
+
+
+def delete_document():
+    args = request.args
+    id = int(args.get('id'))
+    status = delete_document_by_id(document_id=id)
+
+    if status:
+        return jsonify("Success")
+    return jsonify("Error")
 
 
 def add():
