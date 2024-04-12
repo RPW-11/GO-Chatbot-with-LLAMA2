@@ -1,5 +1,5 @@
 from database import db
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float, and_, or_
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, Float, and_, or_, Uuid
 from typing import List
 
 
@@ -7,18 +7,23 @@ class Document (db.Model):
     __tablename__ = 'documents'
 
     # Attributes
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Uuid, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     title = Column(String, nullable=False)
+    original_name = Column(String, nullable=False)
+    path = Column(String, nullable=False)
     topic = Column(String, nullable=False)
     tag = Column(String, nullable=False)
     size = Column(Float, nullable=False)
     created_at = Column(Date, nullable=False)
 
 
-    def __init__(self, user_id, title, topic, tag, size, created_at):
+    def __init__(self, id, user_id, title, original_name, path, topic, tag, size, created_at):
+        self.id = id
         self.user_id = user_id
         self.title = title
+        self.original_name = original_name
+        self.path = path
         self.topic = topic
         self.tag = tag
         self.size = size

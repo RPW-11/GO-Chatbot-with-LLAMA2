@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from waitress import serve
-from constants import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS
+from constants import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, MAX_FILE_SIZE
 from routes.prompt_routes import prompt_bp
 from routes.user_routes import user_bp
 from routes.document_routes import document_bp
@@ -13,6 +13,7 @@ import llm
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 
 CORS(app)
 

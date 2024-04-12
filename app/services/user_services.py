@@ -3,6 +3,12 @@ from models.user import User
 from models.document import Document
 from datetime import date
 from random import random
+from helpers.document import allowed_file
+from werkzeug.utils import secure_filename
+from uuid import uuid4
+from constants import UPLOAD_FOLDER
+import os
+
 
 
 def register(username: str) -> bool:
@@ -10,10 +16,31 @@ def register(username: str) -> bool:
     return User(username=username, created_at=created_at).register_use_if_not_exists()
 
 
-def add_document(user_id:int, title:str, topic:str, tag:str):
-    created_at = date.today()
-    size = random() * 5
-    return Document(user_id=user_id, title=title, topic=topic, tag=tag, size=size, created_at=created_at).insert_document()
+def add_document(user_id:int, title:str, topic:str, files:dict):
+    # check file
+    if 'file' not in files:
+        raise Exception("No file part")
+    
+    document_file = files.get('file')
+
+    if document_file.filename == '':
+        raise Exception("No selected file")
+    
+    if document_file and allowed_file(document_file.filename):
+        id = uuid4()
+        filename = secure_filename(document_file.filename)
+        filepath = os.path.join(UPLOAD_FOLDER, str(id) + '-' + filename )
+        document_file.save(filepath)
+
+        # store the document information in the database
+        created_at = date.today()
+        size = os.stat(filepath).st_size / (1000 * 1000) # in MB
+        tag = document_file.filename.rsplit('.', 1)[1]
+
+        return Document(id=id, user_id=user_id, title=title, original_name=filename, path=filepath, topic=topic, tag=tag, size=size, created_at=created_at).insert_document()
+    
+    else:
+        raise Exception("File is not allowed")
 
 
 def get_all_documents(page, per_page):
@@ -30,7 +57,7 @@ def get_filtered_documents(filter_dict:dict):
     return documents
 
 
-def delete_document_by_id(document_id:int)->bool:
+def delete_document_by_id(document_id:str)->bool:
     try:
         Document.delete_by_id(document_id=document_id)
         return True

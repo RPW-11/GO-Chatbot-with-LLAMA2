@@ -17,7 +17,7 @@ def get_documents_by_filters():
 
 def delete_document():
     args = request.args
-    id = int(args.get('id'))
+    id = args.get('id')
     status = delete_document_by_id(document_id=id)
 
     if status:
@@ -26,9 +26,13 @@ def delete_document():
 
 
 def add():
-    body = request.get_json()
-    status = add_document(body.get('user_id'), body.get('title'), body.get('topic'), body.get('tag'))
-
-    if status:
-        return jsonify("Success")
-    return jsonify("Error")
+    status = False
+    try:
+        form = request.form
+        files = request.files
+        status = add_document(form.get('user_id'), form.get('title'), form.get('topic'), files=files)
+        return jsonify("Success"), 200
+    except Exception as e:
+        if not status:
+            return jsonify({'error': str(e)}), 400
+        return jsonify({'error': str(e)}), 500
